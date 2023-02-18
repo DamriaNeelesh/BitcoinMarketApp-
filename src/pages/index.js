@@ -146,9 +146,9 @@ const Index = ({userList}) => {
       
       <div className="cart" style={{border:'2px solid black', padding:'10px'}}>
         <h4>Total Amount:{1000 - total}</h4>
-        <h5>
+        {/* <h5>
           Bitcoins Buyed:{setCount}
-        </h5>
+        </h5> */}
         <button onClick={() => handleSubmit()}>Place Order</button>
 
       </div>
