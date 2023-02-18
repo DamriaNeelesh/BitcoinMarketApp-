@@ -12,6 +12,7 @@ const Index = ({userList}) => {
   const [value,setValue]=useState(0);
   const [submitted, setSubmitted]=useState(false)
   const [apiData, setApiData] = useState(userList);
+  const [tempVal,setTempVal]=useState(0.00);
 
   // const refreshData = async () => {
   //   const newData = await axios.get('https://data.messari.io/api/v1/assets?fields=id,slug,symbol,metrics/market_data/price_usd');
@@ -106,7 +107,7 @@ const Index = ({userList}) => {
       </thead>
       <tbody>
         {userList && userList.data.map((x,i)=> {
-          const [tempVal,setTempVal]=useState(0.00);
+          
             return (
                 <tr key={i}>
         <td>{i+1}</td>
