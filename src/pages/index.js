@@ -21,9 +21,12 @@ const Index = ({userList}) => {
   // };
 
   
-  const handleSubmit = ()  =>{
-    console.log("Order Success");
-    setSubmitted(true);
+  const handleSubmit = ()  => {
+    if(value != 0) {
+      Swal.fire("Order Success", `Total order price : ${value}`);
+      setSubmitted(true);
+      refresh()
+    }
   };
 
   // useEffect(()=>{
@@ -72,6 +75,12 @@ const Index = ({userList}) => {
     return event.key;
   }
 
+  const refresh = () => {
+    setTotal(1000)
+    setInput(0)
+    setValue(0)
+  }
+
   return (
     <div style={{margin:20}}>
     <div>
@@ -81,7 +90,7 @@ const Index = ({userList}) => {
     <h3>Total Wallet Remaining: {total}</h3>
     </div>
    <div className="container"> 
-   <button>Refresh</button>
+   <button onClick={() => refresh()}>Refresh</button>
    {/* style={{display:'flex',flexDirection:'row'}} */}
     <div className="leftSide">
     <table border="3" style={{padding:'10px', width:'100%'}}>
@@ -114,7 +123,7 @@ const Index = ({userList}) => {
                    autoComplete="off"
                    placeholder="0" />
         </td>
-        <td>
+        <td style={{textAlign:"center"}}>
           <button onClick={() => {
           addToCart(x.metrics.market_data.price_usd,tempVal)
           setTempVal(0.00);
@@ -134,7 +143,7 @@ const Index = ({userList}) => {
         <h5>
           Bitcoins Buyed:{setCount}
         </h5>
-        <button>Place Order</button>
+        <button onClick={() => handleSubmit()}>Place Order</button>
 
       </div>
     </div>
