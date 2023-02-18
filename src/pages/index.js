@@ -42,7 +42,7 @@ const Index = ({userList}) => {
 
   const addToCart = (price,quantity) => {
     // const q=quantity.parseFloat(2);
-    if (price*quantity<= total) {
+    if (price*quantity<= total && quantity!=0) {
       console.log(price*quantity)
       setValue(price*quantity)
       setTotal(total-price*quantity);
@@ -52,8 +52,13 @@ const Index = ({userList}) => {
         'Bitcoin added',
         'success'
       )
-    }
-    else{
+    }else if(price*quantity==0){
+      Swal.fire(
+        'Error',
+        'Please add the quantity',
+        'error'
+      )
+    }else{
       Swal.fire(
         'Insufficient Balance',
         'Bitcoin not added',
