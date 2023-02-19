@@ -18,6 +18,9 @@ const Index = ({userList}) => {
       setSubmitted(true);
       refresh()
     }
+    else{
+      Swal.fire('Please add items');
+    }
   };
 
   // const handleInputChange = (event)=>{
@@ -72,11 +75,11 @@ const Index = ({userList}) => {
     <div>
       <label for="input" />
     {/* <input type='number' step="0.01" placeholder="0" onKeyDown={print} value={(event) => event.key} /> */}
-    <h2 style={{left:'50%'}}>Stock Market Bitcoin Data</h2>
-    <h3>Total Wallet Remaining: {total}</h3>
+    <h2 style={{textAlign:'center'}}>Stock Market Bitcoin Data</h2>
+    <h3 style={{textAlign:'center'}}>Total Wallet Remaining: {total}</h3>
     </div>
    <div className="container"> 
-   <button onClick={() => refresh()}>Refresh</button>
+   <button onClick={() => refresh()} style={{width:'120px', height:'30px'}}>Refresh</button>
    {/* style={{display:'flex',flexDirection:'row'}} */}
     <div className="leftSide">
     <table border="3" style={{padding:'10px', width:'100%'}}>
