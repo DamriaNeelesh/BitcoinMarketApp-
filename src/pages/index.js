@@ -2,26 +2,16 @@
 import { useEffect, useState } from "react";
 import Swal from 'sweetalert2'
 
-var setCount = 0;
 
 const Index = ({userList}) => {
   const [total, setTotal] = useState(1000)
   // const [quantity, setQuantity] = useState(0.00)
   const [loaded,setLoaded]=useState(false);
-
   const [value,setValue]=useState(0);
-  const [submitted, setSubmitted]=useState(false)
-  const [apiData, setApiData] = useState(userList);
+  const [submitted, setSubmitted]=useState(false)  // when the cart is submitted it will be true
+  // const [apiData, setApiData] = useState(userList);
   const [tempVal,setTempVal]=useState(0.00);
-
-  // const refreshData = async () => {
-  //   const newData = await axios.get('https://data.messari.io/api/v1/assets?fields=id,slug,symbol,metrics/market_data/price_usd');
-  //   console.log(newData.data);
-  //   newData.data = userList.data;
-  //   setApiData(newData.data);
-  // };
-
-  
+  const [inputValues,setInputValues] = useState(0);
   const handleSubmit = ()  => {
     if(value != 0) {
       Swal.fire("Order Success", `Total order price : ${value}`);
@@ -30,15 +20,10 @@ const Index = ({userList}) => {
     }
   };
 
-  // useEffect(()=>{
-  //   const keyDownHandler = event => {
-  //     console.log('User Pressed:',event.key);
-  //     if(event.key === 'Enter'){
-  //       event.preventDefault();
-  //       handleSubmit();
-  //     }
-  //   };
-  // })
+  // const handleInputChange = (event)=>{
+  //   const {val} = event.target;
+  //   setInputValues({...inputValues,val});
+  // }
 
   const addToCart = (price,quantity) => {
     // const q=quantity.parseFloat(2);
@@ -46,6 +31,7 @@ const Index = ({userList}) => {
       console.log(price*quantity)
       setValue(price*quantity)
       setTotal(total-price*quantity);
+      setInputValues(0)
       // setCount = setCount + 1;
       Swal.fire(
         'Added to Cart Successfully!',
@@ -69,7 +55,6 @@ const Index = ({userList}) => {
 
   const [inputted,setInput]=useState(0);
   
-  const list= typeof window !== 'undefined' ? userList :[];
 
   useEffect(() => {
     console.log(userList);
@@ -77,14 +62,9 @@ const Index = ({userList}) => {
   },[]);
 
  
-  const getNum = (event) => {
-    return event.key;
-  }
 
   const refresh = () => {
-    setTotal(1000)
-    setInput(0)
-    setValue(0)
+    window.location.reload(false)
   }
 
   return (
@@ -121,8 +101,7 @@ const Index = ({userList}) => {
         <td>{(x.metrics.market_data.price_usd).toFixed(2)}</td>
         <td><input type='text'
                    id="value"
-                   name="value"
-                   value={tempVal}
+                   name={`${i}`}
                    onChange={event => {
                     setTempVal(event.target.value)
                    }}
@@ -146,9 +125,6 @@ const Index = ({userList}) => {
       
       <div className="cart" style={{border:'2px solid black', padding:'10px'}}>
         <h4>Total Amount:{1000 - total}</h4>
-        {/* <h5>
-          Bitcoins Buyed:{setCount}
-        </h5> */}
         <button onClick={() => handleSubmit()}>Place Order</button>
 
       </div>
